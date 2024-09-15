@@ -1,5 +1,5 @@
 import pytest
-from butterxml.__main__ import Parser, DOMNode
+from butterup.__main__ import Parser, DOMNode
 
 @pytest.fixture
 def parser():
