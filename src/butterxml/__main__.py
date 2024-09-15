@@ -1,7 +1,6 @@
 import re
 import xml.etree.ElementTree as ET
-from typing import Dict, List, Optional, Union
-
+from typing import Dict, List, Optional, Union, Tuple
 
 class DOMNode:
     """A node in the document DOM tree."""
