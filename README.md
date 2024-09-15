@@ -1,30 +1,27 @@
-# ButterXML
+# ButterUp
 
-**ButterXML** is ~~butter~~ better than XML 😉
+**ButterUp** is ~~butter~~ better than XML 😉
 
-ButterXML is a *lightweight*, formally defined, super-simple markup language and preprocessor inspired by LaTeX, without the xml `<starttag><subtag>...</subtag></endtag>` pain. It supports file inclusions, variables, and macros natively.  Otherwise, what you put in is what you get out, except that you write pretty, lightweight `\cmd{... \subcmd ...}` syntax, and it writes the ugly `<xmltag>... <subxmltag/> ...</xmltag>` nonsense for you, in your pipeline, so you never have to write it again.
+ButterUp is a *lightweight*, formally defined, super-simple markup language and preprocessor inspired by LaTeX, for both documents and data.  It's ideal as a frontend preprocessor for DocBook and DITA, or any XML/XSLT/XSL-FO pipeline, but can also just make writing XML data files or XHTML documents more pleasant.
 
-Whether you need to generate well-known document formats like **DocBook XML** or **DITA**, or your own custom XML data files or custom XML fragments for `xsl-fo`, ButterXML will make the source code/doc writing more lightweight and more human-readable.
-
-A few special characters and commands are used, which can be escaped. The rest of the `utf8` input is passed through to your target doc verbatim, so things like unicode characters and MathML will "just work", if your target document format support them.
-
-## Why ButterXML?
+## Why ButterUp?
 
 - **LaTeX-like syntax**: Use familiar backslash commands and curly braces for structure, with support for macros, variables, and includes.
-- **Flexible output**: Convert your ButterXML files into **DocBook XML**, **PDF**, **HTML**, or other formats.
+- **Flexible output**: Convert your ButterUp files into **DocBook XML**, **PDF**, **HTML**, or other formats.
 - **Lightweight and readable**: Write structured documents without all the overhead of XML markup.
+- A deliberately limited set of powerful preprocessor features: variables, macros, and includes.
 
 ---
 
 ## Example: How It Works
 
-Here's a quick taste of ButterXML in action:
+Here's a quick taste of ButterUp in action:
 
-### Input: ButterXML `.btr` File
+### Input: ButterUp `.btr` File
 
 ```latex
-\section{Welcome to ButterXML}
-Writing structured documents is easy with ButterXML! Let's see a few features:
+\section{Welcome to ButterUp}
+Writing structured documents is easy with ButterUp! Let's see a few features:
 
 \subsection{Variables}
 Define a variable using \\def:
@@ -47,8 +44,8 @@ Include content from other files:
 ### Output: PDF/HTML (Rendered)
 
 ```latex
-Welcome to ButterXML
-Writing structured documents is easy with ButterXML! Let's see a few features:
+Welcome to ButterUp
+Writing structured documents is easy with ButterUp! Let's see a few features:
 
 Variables
 Define a variable using def:
@@ -64,21 +61,21 @@ Includes
 
 ---
 
-## Why You'll Love ButterXML
+## Why You'll Love ButterUp
 
-1. **Simple LaTeX-like Syntax**: ButterXML uses lightweight syntax, so there's no need to get bogged down in verbose XML or complex tags. If you're familiar with LaTeX, you'll feel right at home!
+1. **Simple LaTeX-like Syntax**: ButterUp uses lightweight syntax, so there's no need to get bogged down in verbose XML or complex tags. If you're familiar with LaTeX, you'll feel right at home!
    
 2. **Macros & Variables**: Create reusable pieces of text with macros and variables for a truly modular document creation experience. 
 
-3. **Multiple Output Formats**: Whether you need **PDF**, **HTML**, or **DocBook XML**, ButterXML makes it easy to convert your `.btr` files to the format of your choice with a few simple commands.
+3. **Multiple Output Formats**: Whether you need **PDF**, **HTML**, or **DocBook XML**, ButterUp makes it easy to convert your `.btr` files to the format of your choice with a few simple commands.
 
 ---
 
 ## Getting Started
 
-### 1. Install ButterXML
+### 1. Install ButterUp
 
-You can install ButterXML using `pip` directly from the GitHub repository:
+You can install ButterUp using `pip` directly from the GitHub repository:
 
 ```bash
 pip install git+https://github.com/yourusername/butterxml.git
@@ -98,7 +95,7 @@ Create a simple file named `document.btr`:
 
 ```latex
 \section{Introduction}
-ButterXML is a lightweight markup language that makes document generation a breeze!
+ButterUp is a lightweight markup language that makes document generation a breeze!
 
 \subsection{Features}
 - LaTeX-like syntax
@@ -174,7 +171,7 @@ Include content from other `.btr` files:
 
 ## Development
 
-If you'd like to contribute to ButterXML or improve it, you can easily get started by cloning the repository and installing the dependencies:
+If you'd like to contribute to ButterUp or improve it, you can easily get started by cloning the repository and installing the dependencies:
 
 ```bash
 git clone https://github.com/yourusername/butterxml.git
@@ -204,16 +201,16 @@ poetry run pytest
 
 ## License
 
-ButterXML is licensed under the Affero GPL version 3 License (only). See the [LICENSE](LICENSE) file for more information.
+ButterUp is licensed under the Affero GPL version 3 License (only). See the [LICENSE](LICENSE) file for more information.
 
 ---
 
 ## Example `.btr` File
 
-Here's a more advanced example of what you can do with ButterXML:
+Here's a more advanced example of what you can do with ButterUp:
 
 ```latex
-\section{Welcome to ButterXML}
+\section{Welcome to ButterUp}
 Let me show you a few cool features.
 
 \subsection{Variables}
@@ -237,4 +234,4 @@ btr yourfile.btr
 
 ---
 
-We hope you enjoy using ButterXML to create lightweight, structured documents. Happy writing!
+We hope you enjoy using ButterUp to create lightweight, structured documents. Happy writing!
