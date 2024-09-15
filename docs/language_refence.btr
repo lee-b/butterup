@@ -1,0 +1,254 @@
+\newcommand{\var}[1]{\${#1}}
+\newcommand{\macro}[1]{\${#1}}
+\def{\languageName}{Custom Input Syntax}
+\def{\commandPrefix}{\\}
+\def{\braceOpen}{\{}
+\def{\braceClose}{\}}
+
+\section{Introduction}
+This document describes the syntax and features of the \var{languageName}. It is intended to be used as a formal language reference.
+
+\section{General Rules}
+
+\subsection{Command Prefix}
+All commands start with a backslash (\commandPrefix). For example, the command to define a variable is written as:
+
+\macro{def}\braceOpen \var{name} \braceClose \braceOpen \var{value} \braceClose.
+
+\subsection{Braces}
+Braces are used to group arguments or provide parameters to commands. The opening brace is \braceOpen and the closing brace is \braceClose.
+
+Example:
+\codeblock{
+\macro{def}\braceOpen \var{name} \braceClose \braceOpen \var{value} \braceClose
+}
+
+\subsection{Escaping Special Characters}
+Special characters like \commandPrefix, \braceOpen, \braceClose, \#, and \$ can be escaped using a backslash:
+
+- To escape a backslash: \commandPrefix\commandPrefix
+- To escape a brace: \commandPrefix\braceOpen or \commandPrefix\braceClose
+- To escape a hash: \commandPrefix#
+- To escape a dollar: \commandPrefix$
+
+\section{Variables}
+
+\subsection{Variable Definition}
+Variables are defined using the \macro{def} command. The syntax is:
+
+\codeblock{
+\macro{def}\braceOpen\commandPrefix\varName\braceClose\braceOpen value \braceClose
+}
+
+For example:
+
+\codeblock{
+\macro{def}\braceOpen\commandPrefix author\braceClose\braceOpen Alice\braceClose
+}
+
+\subsection{Variable Expansion}
+To expand a variable, use the \macro{var}\braceOpen varName \braceClose syntax:
+
+\codeblock{
+This document was written by \var{author}.
+}
+
+This will be expanded to:
+
+\codeblock{
+This document was written by Alice.
+}
+
+\section{Macros}
+
+\subsection{Macro Definition}
+Macros are defined using the \macro{newcommand} command. Macros can accept parameters, and parameters are referenced in the macro body with \#1, \#2, etc.
+
+The syntax for defining a macro is:
+
+\codeblock{
+\macro{newcommand}\braceOpen \commandPrefix macroName \braceClose\braceOpen n \braceClose\braceOpen expansion \braceClose
+}
+
+Example:
+
+\codeblock{
+\macro{newcommand}\braceOpen\commandPrefix greet \braceClose\braceOpen 1 \braceClose\braceOpen Hello, \#1! \braceClose
+}
+
+\subsection{Macro Expansion}
+To expand a macro, use the \macro{var}\braceOpen macroName \braceClose\braceOpen args \braceClose syntax.
+
+For example:
+
+\codeblock{
+\macro{var}\braceOpen greet \braceClose\braceOpen Alice \braceClose
+}
+
+Expands to:
+
+\codeblock{
+Hello, Alice!
+}
+
+\section{Comments}
+
+\subsection{Single-Line Comments}
+Single-line comments begin with the \# symbol and are ignored by the parser.
+
+Example:
+
+\codeblock{
+# This is a single-line comment
+}
+
+\subsection{Multi-Line Comments}
+Multi-line comments are enclosed within the \#comment command:
+
+\codeblock{
+\commandPrefix#comment\braceOpen This is a comment that spans multiple lines. \braceClose
+}
+
+Comments are ignored and do not appear in the output.
+
+\section{Includes}
+
+\subsection{Include Command}
+The \commandPrefix#include command is used to include content from external files. The content of the specified file will be inserted into the document where the \#include command is placed.
+
+Syntax:
+
+\codeblock{
+\commandPrefix#include\braceOpen filename \braceClose
+}
+
+For example:
+
+\codeblock{
+\commandPrefix#include\braceOpen section1.txt \braceClose
+}
+
+This will insert the contents of `section1.txt` at this location in the document.
+
+\section{Document Structure}
+
+\subsection{Sections and Subsections}
+Sections and subsections are hierarchical elements that define the structure of the document.
+
+- \commandPrefix section\braceOpen title \braceClose defines a top-level section.
+- \commandPrefix subsection\braceOpen title \braceClose defines a subsection.
+
+Example:
+
+\codeblock{
+\commandPrefix section\braceOpen Introduction \braceClose
+This is the introduction paragraph.
+
+\commandPrefix subsection\braceOpen Background \braceClose
+This is the background subsection.
+}
+
+This will generate the following structure in XML:
+
+\codeblock{
+<section>
+  <title>Introduction</title>
+  <p>This is the introduction paragraph.</p>
+  <subsection>
+    <title>Background</title>
+    <p>This is the background subsection.</p>
+  </subsection>
+</section>
+}
+
+\subsection{Paragraphs}
+Plain text that is not part of a command will automatically be wrapped in a `<p>` tag when converted to XML.
+
+Example:
+
+\codeblock{
+This is a plain text paragraph.
+}
+
+Will be converted to:
+
+\codeblock{
+<p>This is a plain text paragraph.</p>
+}
+
+\section{Special Built-in Commands}
+
+\subsection{Comment Command}
+The \commandPrefix#comment command is used to add multi-line comments that will be ignored during parsing.
+
+Example:
+
+\codeblock{
+\commandPrefix#comment\braceOpen This is a multi-line comment. \braceClose
+}
+
+\subsection{Include Command}
+The \commandPrefix#include command allows the inclusion of external files in the document.
+
+Example:
+
+\codeblock{
+\commandPrefix#include\braceOpen chapter1.txt \braceClose
+}
+
+This will insert the contents of `chapter1.txt` into the document.
+
+\section{Syntax Examples}
+
+\subsection{Variables}
+\codeblock{
+\commandPrefix def\braceOpen\commandPrefix name\braceClose\braceOpen John Doe \braceClose
+Hello, my name is \var{name}.
+}
+
+Will expand to:
+
+\codeblock{
+Hello, my name is John Doe.
+}
+
+\subsection{Macros}
+\codeblock{
+\commandPrefix newcommand\braceOpen\commandPrefix greet \braceClose\braceOpen 1 \braceClose\braceOpen Hello, \#1! \braceClose
+\commandPrefix greet\braceOpen Alice \braceClose
+}
+
+Will expand to:
+
+\codeblock{
+Hello, Alice!
+}
+
+\subsection{Sections}
+\codeblock{
+\commandPrefix section\braceOpen Introduction \braceClose
+This is the first section.
+
+\commandPrefix subsection\braceOpen Background \braceClose
+This is a subsection.
+}
+
+Will convert to:
+
+\codeblock{
+<section>
+  <title>Introduction</title>
+  <p>This is the first section.</p>
+  <subsection>
+    <title>Background</title>
+    <p>This is a subsection.</p>
+  </subsection>
+</section>
+}
+
+\subsection{Comments}
+\codeblock{
+\commandPrefix#comment\braceOpen This is a multi-line comment. It will be ignored by the parser. \braceClose
+}
+
+This comment will not appear in the output.

@@ -1,0 +1,38 @@
+btr_file          = { statement } ;
+
+statement         = section
+                  | subsection
+                  | subsubsection
+                  | macro_definition
+                  | variable_definition
+                  | include
+                  | comment
+                  | text ;
+
+section           = "\section" "{" text "}" { text | statement } ;
+subsection        = "\subsection" "{" text "}" { text | statement } ;
+subsubsection     = "\subsubsection" "{" text "}" { text | statement } ;
+
+macro_definition  = "\newcommand" "{" command_name "}" "[" parameter_count "]" "{" text "}" ;
+variable_definition = "\def" "{" variable_name "}" "{" text "}" ;
+include           = "\#include" "{" file_name "}" ;
+comment           = "\#comment" "{" text "}" ;
+
+text              = { character | escaped_char | macro_expansion | variable_expansion } ;
+macro_expansion   = "${" macro_name "}" "[" { text { "," text } } "]" ;
+variable_expansion = "${" variable_name "}" ;
+
+command_name      = "\\" letter { letter | digit } ;
+variable_name     = "\\" letter { letter | digit } ;
+macro_name        = letter { letter | digit } ;
+parameter_count   = digit ;
+
+file_name         = string_literal ;
+
+escaped_char      = "\\" ( "\\" | "{" | "}" | "#" | "$" ) ;
+
+character         = ? any UTF-8 character, except "\", "{", "}", "$", "#" ? ;
+string_literal    = '"' character { character } '"' ;
+
+digit             = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+letter            = ? any Unicode letter ? ;

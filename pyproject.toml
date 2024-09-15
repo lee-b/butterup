@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "butterxml"
+version = "0.1.0"
+description = "A lightweight markup language for generating DocBook XML documents."
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+
+# The package is located under the src folder
+packages = [{ include = "butterxml", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+btr = "butterxml.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

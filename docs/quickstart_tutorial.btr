@@ -1,0 +1,158 @@
+\def{\lang}{DocBook}
+\def{\fileExtension}{.btr}
+\def{\exampleFile}{docbook_quickstart.btr}
+
+\section{Introduction}
+This quickstart tutorial will guide you through the basics of using \var{lang}. You'll learn how to write a simple document, convert it to various output formats (such as PDF and HTML), and get an overview of the core features of \var{lang}.
+
+\section{Getting Started}
+
+\subsection{What is \var{lang}?}
+\var{lang} is a semantic markup language that allows you to write structured documents, such as books, articles, and technical documentation. It is similar in nature to XML but specifically designed for writing complex documents with extensive structure, such as chapters, sections, and subsections.
+
+\subsection{Setting Up the Environment}
+To get started with \var{lang}, you will need the following tools installed on your system:
+
+\#include{tools_list.btr}
+
+Once you have these tools installed, you are ready to write and convert \var{lang} documents.
+
+\subsection{Your First Document}
+Let’s create a simple document to demonstrate how \var{lang} works. Open a text editor and create a file called \var{exampleFile} with the following content:
+
+\codeblock{
+\commandPrefix#comment\braceOpen This is a simple ButterXML example file \braceClose
+\commandPrefix section\braceOpen Introduction to \var{lang} \braceClose
+Welcome to the \var{lang} quickstart tutorial. In this tutorial, you'll learn how to write structured documents in \var{lang}.
+\commandPrefix subsection\braceOpen Writing Sections and Subsections \braceClose
+You can write structured content using sections and subsections.
+\commandPrefix section\braceOpen Conclusion \braceClose
+That's all for the introduction to \var{lang}. Now you're ready to convert your document!
+}
+
+This document contains a couple of sections, and a subsection inside the first section.
+
+\subsection{Converting Your Document}
+To convert your \var{lang} document to other formats, you will need to transform it using the DocBook toolchain. Here's how to do it:
+
+\subsubsection{Step 1: Convert to DocBook XML}
+First, you need to convert your ButterXML document to a DocBook XML file. This can be done by transforming the ButterXML markup into valid XML.
+
+\codeblock{
+butterxml_to_docbook \var{exampleFile} > docbook_quickstart.xml
+}
+
+This will convert your \var{exampleFile} file to \code{docbook_quickstart.xml}.
+
+\subsubsection{Step 2: Convert to PDF}
+To generate a PDF from the DocBook XML file, use the following command:
+
+\codeblock{
+fopub docbook_quickstart.xml
+}
+
+This command will generate a PDF file named \code{docbook_quickstart.pdf}.
+
+\subsubsection{Step 3: Convert to HTML}
+To generate an HTML file from the DocBook XML, use:
+
+\codeblock{
+xmlto html docbook_quickstart.xml
+}
+
+This command will generate an HTML file named \code{docbook_quickstart.html}.
+
+\section{Basic Document Structure}
+
+\subsection{Sections and Subsections}
+In \var{lang}, documents are structured hierarchically using sections and subsections. Each section is introduced with a \code{section} command, and subsections are introduced with a \code{subsection} command.
+
+Example:
+
+\codeblock{
+\commandPrefix section\braceOpen Getting Started \braceClose
+This is the introduction to your document.
+
+\commandPrefix subsection\braceOpen Requirements \braceClose
+Here are the requirements to use \var{lang}.
+}
+
+This would be rendered as a section titled "Getting Started" with a subsection titled "Requirements."
+
+\subsection{Paragraphs}
+Any text outside of commands will automatically be wrapped in paragraph tags in the output.
+
+Example:
+
+\codeblock{
+This is a paragraph of text.
+}
+
+This will be converted to:
+
+\codeblock{
+<p>This is a paragraph of text.</p>
+}
+
+\subsection{Lists}
+To create lists, simply write each item on a new line prefixed with the appropriate command:
+
+\codeblock{
+\commandPrefix#comment\braceOpen Example list \braceClose
+\commandPrefix item\braceOpen Item 1 \braceClose
+\commandPrefix item\braceOpen Item 2 \braceClose
+\commandPrefix item\braceOpen Item 3 \braceClose
+}
+
+This will generate a simple unordered list.
+
+\section{More Advanced Topics}
+
+\subsection{Tables}
+You can create tables with \var{lang} by defining a \code{table} and its rows and columns.
+
+Example:
+
+\codeblock{
+\commandPrefix table\braceOpen Example Table \braceClose
+\commandPrefix row\braceOpen
+    \commandPrefix cell\braceOpen Column 1 \braceClose
+    \commandPrefix cell\braceOpen Column 2 \braceClose
+\braceClose
+\commandPrefix row\braceOpen
+    \commandPrefix cell\braceOpen Value 1 \braceClose
+    \commandPrefix cell\braceOpen Value 2 \braceClose
+\braceClose
+}
+
+This would be rendered as a table with two columns and two rows.
+
+\subsection{Images}
+You can include images in your document by using the \commandPrefix#image\braceOpen{path-to-image-file} command.
+
+Example:
+
+\codeblock{
+\commandPrefix#image\braceOpen images/example.png \braceClose
+}
+
+\subsection{Cross-references}
+To create cross-references to other sections of the document, you can use the \commandPrefix#xref command.
+
+Example:
+
+\codeblock{
+For more information, see \commandPrefix#xref\braceOpen Introduction to \var{lang} \braceClose.
+}
+
+This will insert a link to the "Introduction to \var{lang}" section.
+
+\section{Final Thoughts}
+
+In this quickstart guide, you've learned how to write basic documents in \var{lang}, structure them using sections, and convert them to other formats like PDF and HTML using the DocBook toolchain.
+
+For more detailed information about all the commands and features available in \var{lang}, refer to the full language reference.
+
+---
+
+End of Quickstart
