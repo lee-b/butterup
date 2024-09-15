@@ -187,34 +187,39 @@ class Parser:
         return ET.tostring(xml_root, encoding="unicode", method="xml")
 
 
-# Example input with macros, variables, comments, and include
-sile_input = r"""
-\newcommand{\greet}[1]{Hello, #1!}
-\def{\name}{Alice}
+def main():
+    # Example input with macros, variables, comments, and include
+    sample_input = r"""
+    \newcommand{\greet}[1]{Hello, #1!}
+    \def{\name}{Alice}
 
-# Single-line comment that should be ignored
-\#comment{This is a multi-line comment that will not be in the output.}
+    # Single-line comment that should be ignored
+    \#comment{This is a multi-line comment that will not be in the output.}
 
-\section{Introduction}
-This is the introduction paragraph, written by \${name}.
+    \section{Introduction}
+    This is the introduction paragraph, written by \${name}.
 
-\subsection{Greeting}
-Here is a greeting: \${greet}[Bob].
+    \subsection{Greeting}
+    Here is a greeting: \${greet}[Bob].
 
-\#include{other_file.txt}
-"""
+    \#include{other_file.txt}
+    """
 
-# Initialize the parser
-parser = Parser()
+    # Initialize the parser
+    parser = Parser()
 
-# Parse the input and build the DOM
-dom_root = parser.parse_content(sile_input)
+    # Parse the input and build the DOM
+    dom_root = parser.parse_content(sample_input)
 
-# Expand macros, variables, and includes in the DOM
-parser.expand_dom(dom_root)
+    # Expand macros, variables, and includes in the DOM
+    parser.expand_dom(dom_root)
 
-# Output the XML string
-xml_output = parser.to_xml_string(dom_root)
+    # Output the XML string
+    xml_output = parser.to_xml_string(dom_root)
 
-# Print the XML output
-print(xml_output)
+    # Print the XML output
+    print(xml_output)
+
+
+if __name__ == "__main__":
+    main()
