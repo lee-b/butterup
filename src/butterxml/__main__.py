@@ -1,6 +1,8 @@
 import re
 import xml.etree.ElementTree as ET
 from typing import Dict, List, Optional, Union, Tuple
+import argparse
+import sys
 
 class DOMNode:
     """A node in the document DOM tree."""
@@ -188,37 +190,45 @@ class Parser:
 
 
 def main():
-    # Example input with macros, variables, comments, and include
-    sample_input = r"""
-    \newcommand{\greet}[1]{Hello, #1!}
-    \def{\name}{Alice}
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Convert ButterXML to XML")
+    parser.add_argument("input_file", help="Input ButterXML file")
+    parser.add_argument("-o", "--output", help="Output XML file (default: stdout)")
 
-    # Single-line comment that should be ignored
-    \#comment{This is a multi-line comment that will not be in the output.}
+    # Parse arguments
+    args = parser.parse_args()
 
-    \section{Introduction}
-    This is the introduction paragraph, written by \${name}.
-
-    \subsection{Greeting}
-    Here is a greeting: \${greet}[Bob].
-
-    \#include{other_file.txt}
-    """
+    # Read input file
+    try:
+        with open(args.input_file, 'r') as file:
+            input_content = file.read()
+    except FileNotFoundError:
+        print(f"Error: Input file '{args.input_file}' not found.", file=sys.stderr)
+        sys.exit(1)
 
     # Initialize the parser
-    parser = Parser()
+    btr_parser = Parser()
 
     # Parse the input and build the DOM
-    dom_root = parser.parse_content(sample_input)
+    dom_root = btr_parser.parse_content(input_content)
 
     # Expand macros, variables, and includes in the DOM
-    parser.expand_dom(dom_root)
+    btr_parser.expand_dom(dom_root)
 
-    # Output the XML string
-    xml_output = parser.to_xml_string(dom_root)
+    # Generate the XML output
+    xml_output = btr_parser.to_xml_string(dom_root)
 
-    # Print the XML output
-    print(xml_output)
+    # Write output to file or stdout
+    if args.output:
+        try:
+            with open(args.output, 'w') as file:
+                file.write(xml_output)
+            print(f"XML output written to {args.output}")
+        except IOError as e:
+            print(f"Error writing to output file: {e}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        print(xml_output)
 
 
 if __name__ == "__main__":
